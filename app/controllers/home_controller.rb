@@ -89,7 +89,7 @@ class HomeController < ApplicationController
     drivev3 = Google::Apis::DriveV3::DriveService.new
     drivev3.authorization = get_credentials
     file_path = "public/temp/"+title
-    content = drivev3.get_file(file_id, download_dest: file_path)
+    drivev3.get_file(file_id, download_dest: file_path)
     send_file file_path, :filename => title, :type => mime_type, :disposition => "attachment"
   end
 
