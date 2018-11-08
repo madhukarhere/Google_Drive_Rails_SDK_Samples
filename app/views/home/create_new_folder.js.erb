@@ -1,0 +1,17 @@
+<% if @folder_name.blank? %>
+  alert("Folder name missing !!!");
+<% else %>
+  check();
+  location.reload(true);
+<% end %>
+
+
+var check = function(){
+    if(condition){
+        // run when condition is met
+    }
+    else {
+        setTimeout(check, 6000); // check again in a second
+    }
+}
+
