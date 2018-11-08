@@ -1,0 +1,56 @@
+%table#folder-structure
+  %thead
+    %tr
+      %td
+        = 'Name'
+      %td
+        = 'Last Modified user'
+      %td
+        = 'Owner'
+      %td
+        = 'Open in GD'
+      %td
+        = 'Download'
+    %tr
+      %td{colspan: 5}
+        %hr{style: 'width: 100%; margin-top: -4px;'}
+  - @files.items.each do |file|
+    %tr
+      %td
+        %span
+          %img{src: file.icon_link, title: file.mime_type}
+        - if file.mime_type == 'application/vnd.google-apps.folder'
+          %a{href: '/home/folder_view?folder_id=' + file.id}
+            = file.title
+        - else
+          %span
+            = file.title
+            -#%a{href: file.alternate_link, target: '_blank'}
+              = file.title
+
+        -#%span
+        -#  = "("
+        -#%span
+        -#  %a{href: '#', onclick: 'javascript: return delete_gd_folder("'+file.id.to_s+'")' }
+        -#    = 'Delete'
+        -#%span
+        -#  = ")"
+      %td
+        = file.last_modifying_user_name
+      %td
+        = file.owners[0].display_name
+      %td
+        %a{href: file.alternate_link, target: '_blank'}
+          = 'Open in GD'
+      %td
+        - if  file.download_url.present?
+          %a{href: '/home/download_file?file_id='+file.id+"&title="+file.title+"&mime_type="+file.mime_type, target: '_blank'}
+            = 'Download'
+        - else
+          = 'NA'
+
+:scss
+  #folder-structure {
+    border-spacing: 10px;
+    border-style: dashed;
+  }
